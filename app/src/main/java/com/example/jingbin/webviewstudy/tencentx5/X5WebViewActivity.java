@@ -65,6 +65,8 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
     // 可滚动的title 使用简单 没有渐变效果，文字两旁有阴影
     private TextView tvGunTitle;
     private String mTitle;
+    // 双击返回退出
+    private long preTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,9 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
 
     private void getIntentData() {
         mUrl = getIntent().getStringExtra("mUrl");
+        if (mUrl == null) {
+            mUrl = "http://qq.com";
+        }
         mTitle = getIntent().getStringExtra("mTitle");
     }
 
@@ -101,6 +106,7 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
         if (actionBar != null) {
             //去除默认Title显示
             actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.hide();
         }
         mTitleToolBar.setOverflowIcon(ContextCompat.getDrawable(this, R.drawable.actionbar_more));
         tvGunTitle.postDelayed(new Runnable() {
@@ -395,10 +401,10 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
      * 直接通过三方浏览器打开时，回退到首页
      */
     public void handleFinish() {
-        supportFinishAfterTransition();
-        if (!MainActivity.isLaunch) {
-            MainActivity.start(this);
-        }
+//        supportFinishAfterTransition();
+//        if (!MainActivity.isLaunch) {
+//            MainActivity.start(this);
+//        }
     }
 
     /**
@@ -448,7 +454,14 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
 
                 //退出网页
             } else {
-                handleFinish();
+//                handleFinish();
+                if (System.currentTimeMillis() - preTime < 2000) {//在两秒内，退出
+                    System.exit(0);
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                preTime = System.currentTimeMillis();
+                return true;
             }
         }
         return false;

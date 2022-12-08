@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -37,10 +38,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AutoCompleteTextView etSearch;
     private RadioButton rbSystem;
     private int state = 0;
+    private final String HomeUrl = "http://qq.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadUrl(HomeUrl, "", true);
         setContentView(R.layout.activity_main);
 
         StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary), 0);
@@ -172,6 +175,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void loadUrl(String mUrl, String mTitle) {
+        if (rbSystem.isChecked()) {
+//            WebViewActivity.loadUrl(this, mUrl, mTitle);
+            ByWebViewActivity.loadUrl(this, mUrl, mTitle, state);
+        } else {
+            X5WebViewActivity.loadUrl(this, mUrl, mTitle);
+        }
+    }
+
+    private void loadUrl(String mUrl, String mTitle, Boolean forceX5) {
+        if (forceX5) {
+            X5WebViewActivity.loadUrl(this, mUrl, mTitle);
+            return;
+        }
         if (rbSystem.isChecked()) {
 //            WebViewActivity.loadUrl(this, mUrl, mTitle);
             ByWebViewActivity.loadUrl(this, mUrl, mTitle, state);
