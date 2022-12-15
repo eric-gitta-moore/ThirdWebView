@@ -67,6 +67,8 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
     private String mTitle;
     // 双击返回退出
     private long preTime = 0;
+    // 是否显示状态栏
+    private final boolean isShowToolBar = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +85,7 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
     private void getIntentData() {
         mUrl = getIntent().getStringExtra("mUrl");
         if (mUrl == null) {
-            mUrl = "http://qq.com";
+            mUrl = "http://baidu.com";
         }
         mTitle = getIntent().getStringExtra("mTitle");
     }
@@ -106,7 +108,8 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
         if (actionBar != null) {
             //去除默认Title显示
             actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.hide();
+            if (!isShowToolBar)
+                actionBar.hide();
         }
         mTitleToolBar.setOverflowIcon(ContextCompat.getDrawable(this, R.drawable.actionbar_more));
         tvGunTitle.postDelayed(new Runnable() {
@@ -456,8 +459,11 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
             } else {
 //                handleFinish();
                 if (System.currentTimeMillis() - preTime < 2000) {//在两秒内，退出
-                    System.exit(0);
-                    android.os.Process.killProcess(android.os.Process.myPid());
+                    Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                    homeIntent.addCategory(Intent.CATEGORY_HOME);
+                    homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(homeIntent);
+                    return true;
                 }
                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 preTime = System.currentTimeMillis();
