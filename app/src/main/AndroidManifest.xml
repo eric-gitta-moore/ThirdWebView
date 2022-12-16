@@ -65,6 +65,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".EnterActivity"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
         <!--tencent x5 页面-->
         <activity
             android:name=".tencentx5.X5WebViewActivity"
@@ -73,10 +81,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/WebViewTheme"
             tools:ignore="LockedOrientationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!--tencent x5 页面 使用的是Apache HTTP客户端 适配SDK 28-->
         <uses-library
