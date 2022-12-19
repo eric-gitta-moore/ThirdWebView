@@ -4,5 +4,6 @@
   },
   "WebView": {
     "IsFullScreen": false
-  }
+  },
+  "homeURL": "https://www.subaibaiys.com"
 }

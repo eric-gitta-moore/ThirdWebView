@@ -11,8 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.alibaba.fastjson2.JSONObject;
-import com.alibaba.fastjson2.JSONPath;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONPath;
 import com.example.webview.R;
 import com.example.webview.tencentx5.X5WebViewActivity;
 import com.example.webview.utils.ConfigUtil;

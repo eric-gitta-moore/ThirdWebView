@@ -115,8 +115,13 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
         mUrl = getIntent().getStringExtra("mUrl");
         if (mUrl == null) {
             mUrl = "http://debugtbs.qq.com";
-            mUrl = "http://baidu.com";
-            mUrl = "https://www.subaibaiys.com";
+//            mUrl = "http://baidu.com";
+//            mUrl = "https://www.subaibaiys.com";
+            try {
+                mUrl = ConfigUtil.getInstance().getHomeURL(this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         mTitle = getIntent().getStringExtra("mTitle");
     }

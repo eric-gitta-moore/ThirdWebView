@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.widget.Toast;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 
 import java.io.BufferedReader;
@@ -31,11 +31,18 @@ public class ConfigUtil {
         JSONObject config = data.getJSONObject("Splash");
         return config.getBooleanValue("IsFullScreen");
     }
+
     public boolean getWebViewIsFullScreen(Context context) throws IOException {
         ConfigUtil configUtil = ConfigUtil.getInstance();
         JSONObject data = configUtil.getConfig(context);
         JSONObject config = data.getJSONObject("WebView");
         return config.getBooleanValue("IsFullScreen");
+    }
+
+    public String getHomeURL(Context context) throws IOException {
+        ConfigUtil configUtil = ConfigUtil.getInstance();
+        JSONObject config = configUtil.getConfig(context);
+        return config.getString("homeURL");
     }
 
     public JSONObject getConfig(Context context) throws IOException {
