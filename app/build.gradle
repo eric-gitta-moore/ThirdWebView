@@ -37,6 +37,10 @@ android {
             keyPassword "webview2018"
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -54,4 +58,5 @@ dependencies {
 
     implementation "com.github.permissions-dispatcher:permissionsdispatcher:4.9.2"
     annotationProcessor "com.github.permissions-dispatcher:permissionsdispatcher-processor:4.9.2"
+    implementation 'com.alibaba.fastjson2:fastjson2:2.0.21'
 }

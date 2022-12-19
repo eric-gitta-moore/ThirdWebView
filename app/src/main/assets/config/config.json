@@ -1,0 +1,8 @@
+{
+  "Splash": {
+    "IsFullScreen": true
+  },
+  "WebView": {
+    "IsFullScreen": false
+  }
+}

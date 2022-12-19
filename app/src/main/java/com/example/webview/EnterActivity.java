@@ -6,12 +6,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONPath;
 import com.example.webview.R;
 import com.example.webview.tencentx5.X5WebViewActivity;
+import com.example.webview.utils.ConfigUtil;
 import com.example.webview.utils.StatusBarUtil;
 
 import java.io.IOException;
@@ -25,8 +29,19 @@ public class EnterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter);
         setSplash();
-        StatusBarUtil.toggleFullscreen(this);
+        initConfig();
         init();
+    }
+
+    private void initConfig() {
+        try {
+            if (ConfigUtil.getInstance().getSplashIsFullScreen(this)) {
+                StatusBarUtil.toggleFullscreen(this);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "读取配置文件失败", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setSplash() {

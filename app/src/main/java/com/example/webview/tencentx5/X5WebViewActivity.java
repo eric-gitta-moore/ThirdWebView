@@ -35,12 +35,14 @@ import com.example.webview.config.MyJavascriptInterface;
 import com.example.webview.config.MyWebChromeClient;
 import com.example.webview.config.WebProgress;
 import com.example.webview.utils.CheckNetwork;
+import com.example.webview.utils.ConfigUtil;
 import com.example.webview.utils.DonwloadSaveImg;
 import com.example.webview.utils.StatusBarUtil;
 import com.example.webview.utils.WebTools;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.sdk.DownloadListener;
 
+import java.io.IOException;
 import java.util.Map;
 
 import permissions.dispatcher.*;
@@ -84,12 +86,23 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview_x5);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
-        StatusBarUtil.toggleFullscreen(this);
+        initConfig();
         getIntentData();
         initTitle();
         initWebView();
         webView.loadUrl(mUrl);
         getDataFromBrowser(getIntent());
+    }
+
+    private void initConfig() {
+        try {
+            if (ConfigUtil.getInstance().getWebViewIsFullScreen(this)) {
+                StatusBarUtil.toggleFullscreen(this);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "读取配置文件失败", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
