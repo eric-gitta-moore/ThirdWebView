@@ -1,11 +1,9 @@
 package com.example.webview;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -18,21 +16,14 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.webview.BuildConfig;
-import com.example.webview.R;
 import com.example.webview.tencentx5.X5WebViewActivity;
-import com.example.webview.ui.ByWebViewActivity;
+import com.example.webview.ui.OlWebViewActivity;
 import com.example.webview.ui.CoordinatorWebActivity;
 import com.example.webview.utils.StatusBarUtil;
 
 import com.example.web.web.ByWebTools;
 
-/**
- * Link to: https://github.com/youlookwhat/ByWebView
- * contact me: https://www.jianshu.com/u/e43c6e979831
- */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     // 是否开启了主页，没有开启则会返回主页
@@ -120,23 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 CoordinatorWebActivity.loadUrl(this, "http://www.baidu.com", "百度一下", 0);
                 break;
             case R.id.tv_version:
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("感谢");
-                builder.setMessage("开源不易，给作者一个star好吗？😊");
-                builder.setNegativeButton("已给", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, "感谢老铁~", Toast.LENGTH_LONG).show();
-                    }
-                });
-                builder.setPositiveButton("去star", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        state = 0;
-                        loadUrl("https://github.com/youlookwhat/ByWebView", "ByWebView");
-                    }
-                });
-                builder.show();
                 break;
             default:
                 break;
@@ -149,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void openUrl() {
         state = 0;
         String url = ByWebTools.getUrl(etSearch.getText().toString().trim());
-        loadUrl(!TextUtils.isEmpty(url) ? url : "https://github.com/youlookwhat/ByWebView", "ByWebView");
+        loadUrl(!TextUtils.isEmpty(url) ? url : "https://baidu.com/", "new tab");
     }
 
     @Override
@@ -163,11 +137,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (item.getItemId()) {
             case R.id.actionbar_update:
                 state = 0;
-                loadUrl("https://github.com/youlookwhat/download/raw/main/ByWebView.apk", "ByWebView.apk");
+                loadUrl("https://baidu.com/", "test.apk");
                 break;
             case R.id.actionbar_about:
                 state = 0;
-                loadUrl("https://github.com/youlookwhat/ByWebView", "ByWebView");
+                loadUrl("https://baidu.com/", "test");
                 break;
             default:
                 break;
@@ -178,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void loadUrl(String mUrl, String mTitle) {
         if (rbSystem.isChecked()) {
 //            WebViewActivity.loadUrl(this, mUrl, mTitle);
-            ByWebViewActivity.loadUrl(this, mUrl, mTitle, state);
+            OlWebViewActivity.loadUrl(this, mUrl, mTitle, state);
         } else {
             X5WebViewActivity.loadUrl(this, mUrl, mTitle);
         }
@@ -191,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (rbSystem.isChecked()) {
 //            WebViewActivity.loadUrl(this, mUrl, mTitle);
-            ByWebViewActivity.loadUrl(this, mUrl, mTitle, state);
+            OlWebViewActivity.loadUrl(this, mUrl, mTitle, state);
         } else {
             X5WebViewActivity.loadUrl(this, mUrl, mTitle);
         }

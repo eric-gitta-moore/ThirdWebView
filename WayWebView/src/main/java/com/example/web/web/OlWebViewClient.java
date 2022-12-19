@@ -19,22 +19,22 @@ import androidx.appcompat.app.AlertDialog;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by jingbin on 2020/06/30
+ * Created by win on 2020/06/30
  * 监听网页链接:
  * - 根据标识:打电话、发短信、发邮件
  * - 进度条的显示
  * - 添加javascript监听
  * - 唤起京东，支付宝，微信原生App
  */
-public class ByWebViewClient extends WebViewClient {
+public class OlWebViewClient extends WebViewClient {
 
     private WeakReference<Activity> mActivityWeakReference = null;
-    private ByWebView mByWebView;
+    private OlWebView mOlWebView;
     private OnByWebClientCallback onByWebClientCallback;
 
-    ByWebViewClient(Activity activity, ByWebView byWebView) {
+    OlWebViewClient(Activity activity, OlWebView olWebView) {
         mActivityWeakReference = new WeakReference<Activity>(activity);
-        this.mByWebView = byWebView;
+        this.mOlWebView = olWebView;
     }
 
     void setOnByWebClientCallback(OnByWebClientCallback onByWebClientCallback) {
@@ -90,8 +90,8 @@ public class ByWebViewClient extends WebViewClient {
         // html加载完成之后，添加监听图片的点击js函数
         Activity mActivity = this.mActivityWeakReference.get();
         if (mActivity != null && !mActivity.isFinishing()
-                && !ByWebTools.isNetworkConnected(mActivity) && mByWebView.getProgressBar() != null) {
-            mByWebView.getProgressBar().hide();
+                && !ByWebTools.isNetworkConnected(mActivity) && mOlWebView.getProgressBar() != null) {
+            mOlWebView.getProgressBar().hide();
         }
         if (onByWebClientCallback != null) {
             onByWebClientCallback.onPageFinished(view, url);
@@ -106,7 +106,7 @@ public class ByWebViewClient extends WebViewClient {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return;
         }
-        mByWebView.showErrorView();
+        mOlWebView.showErrorView();
     }
 
     @Override
@@ -116,7 +116,7 @@ public class ByWebViewClient extends WebViewClient {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            int statusCode = errorResponse.getStatusCode();
 //            if (404 == statusCode || 500 == statusCode) {
-//                mByWebView.showErrorView();
+//                mOlWebView.showErrorView();
 //            }
 //        }
     }
@@ -127,7 +127,7 @@ public class ByWebViewClient extends WebViewClient {
         super.onReceivedError(view, request, error);
         if (request.isForMainFrame()) {
             // 是否是为 main frame创建
-            mByWebView.showErrorView();
+            mOlWebView.showErrorView();
         }
     }
 

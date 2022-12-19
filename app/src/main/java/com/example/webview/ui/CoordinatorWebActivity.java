@@ -27,14 +27,13 @@ import com.example.webview.utils.WebTools;
 import com.google.android.material.appbar.AppBarLayout;
 
 import com.example.web.web.ByWebTools;
-import com.example.web.web.ByWebView;
+import com.example.web.web.OlWebView;
 import com.example.web.web.OnByWebClientCallback;
 import com.example.web.web.OnTitleProgressCallback;
 
 /**
- * @author jingbin
+ * @author win
  * 与ToolBar联动的WebView,自定义WebView
- * link to https://github.com/youlookwhat/ByWebView
  */
 public class CoordinatorWebActivity extends AppCompatActivity {
 
@@ -43,7 +42,7 @@ public class CoordinatorWebActivity extends AppCompatActivity {
     private String mUrl;
     private String mTitle;
     private WebView webView;
-    private ByWebView byWebView;
+    private OlWebView olWebView;
     private TextView tvGunTitle;
 
     @Override
@@ -71,7 +70,7 @@ public class CoordinatorWebActivity extends AppCompatActivity {
 
         NestedScrollWebView nestedScrollWebView = new NestedScrollWebView(this);
 
-        byWebView = ByWebView
+        olWebView = OlWebView
                 .with(this)
                 .setWebParent(container, 1, lp)
                 .setCustomWebView(nestedScrollWebView)// 设置自定义WebView
@@ -80,7 +79,7 @@ public class CoordinatorWebActivity extends AppCompatActivity {
                 .setOnByWebClientCallback(onByWebClientCallback)
                 .addJavascriptInterface("injectedObject", new MyJavascriptInterface(this))
                 .loadUrl(mUrl);
-        webView = byWebView.getWebView();
+        webView = olWebView.getWebView();
     }
 
     private void initToolBar() {
@@ -156,7 +155,7 @@ public class CoordinatorWebActivity extends AppCompatActivity {
                 WebTools.openLink(CoordinatorWebActivity.this, webView.getUrl());
                 break;
             case R.id.actionbar_webview_refresh:// 刷新页面
-                byWebView.reload();
+                olWebView.reload();
                 break;
             default:
                 break;
@@ -169,7 +168,7 @@ public class CoordinatorWebActivity extends AppCompatActivity {
      * 这段js函数的功能就是，遍历所有的img节点，并添加onclick函数，函数的功能是在图片点击的时候调用本地java接口并传递url过去
      */
     private void loadImageClickJs() {
-        byWebView.getLoadJsHolder().loadJs("javascript:(function(){" +
+        olWebView.getLoadJsHolder().loadJs("javascript:(function(){" +
                 "var objs = document.getElementsByTagName(\"img\");" +
                 "for(var i=0;i<objs.length;i++)" +
                 "{" +
@@ -183,7 +182,7 @@ public class CoordinatorWebActivity extends AppCompatActivity {
      * 遍历所有的<li>节点,将节点里的属性传递过去(属性自定义,用于页面跳转)
      */
     private void loadTextClickJs() {
-        byWebView.getLoadJsHolder().loadJs("javascript:(function(){" +
+        olWebView.getLoadJsHolder().loadJs("javascript:(function(){" +
                 "var objs =document.getElementsByTagName(\"li\");" +
                 "for(var i=0;i<objs.length;i++)" +
                 "{" +
@@ -198,9 +197,9 @@ public class CoordinatorWebActivity extends AppCompatActivity {
      */
     private void loadCallJs() {
         // 无参数调用
-        byWebView.getLoadJsHolder().quickCallJs("javacalljs");
+        olWebView.getLoadJsHolder().quickCallJs("javacalljs");
         // 传递参数调用
-        byWebView.getLoadJsHolder().quickCallJs("javacalljswithargs", "android传入到网页里的数据，有参");
+        olWebView.getLoadJsHolder().quickCallJs("javacalljswithargs", "android传入到网页里的数据，有参");
     }
 
     /**
@@ -208,7 +207,7 @@ public class CoordinatorWebActivity extends AppCompatActivity {
      * 获取网页源码
      */
     private void loadWebsiteSourceCodeJs() {
-        byWebView.getLoadJsHolder().loadJs("javascript:window.injectedObject.showSource(document.getElementsByTagName('html')[0].innerHTML);");
+        olWebView.getLoadJsHolder().loadJs("javascript:window.injectedObject.showSource(document.getElementsByTagName('html')[0].innerHTML);");
     }
 
     /**
@@ -216,7 +215,7 @@ public class CoordinatorWebActivity extends AppCompatActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        byWebView.handleFileChooser(requestCode, resultCode, intent);
+        olWebView.handleFileChooser(requestCode, resultCode, intent);
     }
 
     /**
@@ -266,7 +265,7 @@ public class CoordinatorWebActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (byWebView.handleKeyEvent(keyCode, event)) {
+        if (olWebView.handleKeyEvent(keyCode, event)) {
             return true;
         } else {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -279,18 +278,18 @@ public class CoordinatorWebActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        byWebView.onPause();
+        olWebView.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        byWebView.onResume();
+        olWebView.onResume();
     }
 
     @Override
     protected void onDestroy() {
-        byWebView.onDestroy();
+        olWebView.onDestroy();
         super.onDestroy();
     }
 

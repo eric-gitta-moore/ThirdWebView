@@ -56,9 +56,8 @@ import permissions.dispatcher.*;
  * 5、添加相关权限
  * 6、getWindow().setFormat(PixelFormat.TRANSLUCENT);
  *
- * @author jingbin
+ * @author win
  * 腾讯x5文档地址：https://x5.tencent.com/docs/access.html
- * link to https://github.com/youlookwhat/ByWebView
  */
 @RuntimePermissions
 public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageView {

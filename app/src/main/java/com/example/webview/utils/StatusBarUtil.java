@@ -17,8 +17,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 /**
  * Created by Jaeger on 16/2/14.
  * <p>
- * Email: chjie.jaeger@gmail.com
- * GitHub: https://github.com/laobie
  */
 public class StatusBarUtil {
 

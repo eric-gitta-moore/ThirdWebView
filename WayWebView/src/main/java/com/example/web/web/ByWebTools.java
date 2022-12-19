@@ -12,7 +12,7 @@ import android.text.TextUtils;
 import me.jingbin.web.BuildConfig;
 
 /**
- * @author jingbin
+ * @author win
  */
 public class ByWebTools {
 

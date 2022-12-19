@@ -12,7 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by jingbin on 2020/7/4.
+ * Created by win on 2020/7/4.
  */
 public class ByLoadJsHolder {
 

@@ -31,10 +31,9 @@ import me.jingbin.web.R;
  * - 前端代码嵌入js(缺乏灵活性)
  * - 网页自带js跳转
  *
- * @author jingbin
- * link to https://github.com/youlookwhat/ByWebView
+ * @author win
  */
-public class ByWebView {
+public class OlWebView {
 
     private WebView mWebView;
     private WebProgress mProgressBar;
@@ -45,7 +44,7 @@ public class ByWebView {
     private ByWebChromeClient mWebChromeClient;
     private ByLoadJsHolder byLoadJsHolder;
 
-    private ByWebView(Builder builder) {
+    private OlWebView(Builder builder) {
         this.activity = builder.mActivity;
         this.mErrorTitle = builder.mErrorTitle;
         this.mErrorLayoutId = builder.mErrorLayoutId;
@@ -69,9 +68,9 @@ public class ByWebView {
         mWebView.setWebChromeClient(mWebChromeClient);
 
         // 错误页面、页面结束、处理DeepLink
-        ByWebViewClient mByWebViewClient = new ByWebViewClient(activity, this);
-        mByWebViewClient.setOnByWebClientCallback(builder.mOnByWebClientCallback);
-        mWebView.setWebViewClient(mByWebViewClient);
+        OlWebViewClient mOlWebViewClient = new OlWebViewClient(activity, this);
+        mOlWebViewClient.setOnByWebClientCallback(builder.mOnByWebClientCallback);
+        mWebView.setWebViewClient(mOlWebViewClient);
 
         handleJsInterface(builder);
     }
@@ -474,19 +473,19 @@ public class ByWebView {
         }
 
         /**
-         * 直接获取ByWebView，避免一定要调用loadUrl()才能获取ByWebView的情况
+         * 直接获取OlWebView，避免一定要调用loadUrl()才能获取OlWebView的情况
          */
-        public ByWebView get() {
-            return new ByWebView(this);
+        public OlWebView get() {
+            return new OlWebView(this);
         }
 
         /**
-         * loadUrl()并获取ByWebView
+         * loadUrl()并获取OlWebView
          */
-        public ByWebView loadUrl(String url) {
-            ByWebView byWebView = get();
-            byWebView.loadUrl(url);
-            return byWebView;
+        public OlWebView loadUrl(String url) {
+            OlWebView olWebView = get();
+            olWebView.loadUrl(url);
+            return olWebView;
         }
     }
 

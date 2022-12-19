@@ -28,8 +28,7 @@ import androidx.annotation.Nullable;
  * 5. 能显示渐变色
  * 6. 进度在95-100时再次开始进度条透明度问题
  *
- * @author jingbin
- * Link to https://github.com/youlookwhat/WebProgress
+ * @author win
  */
 public class WebProgress extends FrameLayout {
 

@@ -54,9 +54,8 @@ import com.example.webview.R;
  * - 网页自带js跳转
  * 被作为第三方浏览器打开
  *
- * @author jingbin
- * link to https://github.com/youlookwhat/ByWebView
- * new to {@link ByWebViewActivity}
+ * @author win
+ * new to {@link OlWebViewActivity}
  */
 @Deprecated
 public class WebViewActivity extends AppCompatActivity implements IWebPageView {

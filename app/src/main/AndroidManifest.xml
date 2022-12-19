@@ -95,7 +95,7 @@
             android:process=":dexopt" />
 
         <activity
-            android:name="com.example.webview.ui.ByWebViewActivity"
+            android:name="com.example.webview.ui.OlWebViewActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"

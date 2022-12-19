@@ -28,7 +28,7 @@ import com.example.webview.R;
 import com.example.webview.utils.WebTools;
 
 import com.example.web.web.ByWebTools;
-import com.example.web.web.ByWebView;
+import com.example.web.web.OlWebView;
 import com.example.web.web.OnByWebClientCallback;
 import com.example.web.web.OnTitleProgressCallback;
 
@@ -46,17 +46,16 @@ import com.example.web.web.OnTitleProgressCallback;
  * - 网页自带js跳转
  * 被作为第三方浏览器打开
  *
- * @author jingbin
- * link to https://github.com/youlookwhat/ByWebView
+ * @author win
  */
-public class ByWebViewActivity extends AppCompatActivity {
+public class OlWebViewActivity extends AppCompatActivity {
 
     // 网页链接
     private int mState;
     private String mUrl;
     private String mTitle;
     private WebView webView;
-    private ByWebView byWebView;
+    private OlWebView olWebView;
     private TextView tvGunTitle;
 
     @Override
@@ -78,7 +77,7 @@ public class ByWebViewActivity extends AppCompatActivity {
         StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary), 0);
         initToolBar();
         LinearLayout container = findViewById(R.id.ll_container);
-        byWebView = ByWebView
+        olWebView = OlWebView
                 .with(this)
                 .setWebParent(container, new LinearLayout.LayoutParams(-1, -1))
                 .useWebProgress(ContextCompat.getColor(this, R.color.coloRed))
@@ -86,7 +85,7 @@ public class ByWebViewActivity extends AppCompatActivity {
                 .setOnByWebClientCallback(onByWebClientCallback)
                 .addJavascriptInterface("injectedObject", new MyJavascriptInterface(this))
                 .loadUrl(mUrl);
-        webView = byWebView.getWebView();
+        webView = olWebView.getWebView();
     }
 
     private void initToolBar() {
@@ -158,7 +157,7 @@ public class ByWebViewActivity extends AppCompatActivity {
         public boolean isOpenThirdApp(String url) {
             // 处理三方链接
             Log.e("---url", url);
-            return ByWebTools.handleThirdApp(ByWebViewActivity.this, url);
+            return ByWebTools.handleThirdApp(OlWebViewActivity.this, url);
         }
     };
 
@@ -176,17 +175,17 @@ public class ByWebViewActivity extends AppCompatActivity {
                 break;
             case R.id.actionbar_share:// 分享到
                 String shareText = webView.getTitle() + webView.getUrl();
-                WebTools.share(ByWebViewActivity.this, shareText);
+                WebTools.share(OlWebViewActivity.this, shareText);
                 break;
             case R.id.actionbar_cope:// 复制链接
                 WebTools.copy(webView.getUrl());
                 Toast.makeText(this, "复制成功", Toast.LENGTH_LONG).show();
                 break;
             case R.id.actionbar_open:// 打开链接
-                WebTools.openLink(ByWebViewActivity.this, webView.getUrl());
+                WebTools.openLink(OlWebViewActivity.this, webView.getUrl());
                 break;
             case R.id.actionbar_webview_refresh:// 刷新页面
-                byWebView.reload();
+                olWebView.reload();
                 break;
             default:
                 break;
@@ -199,7 +198,7 @@ public class ByWebViewActivity extends AppCompatActivity {
      * 这段js函数的功能就是，遍历所有的img节点，并添加onclick函数，函数的功能是在图片点击的时候调用本地java接口并传递url过去
      */
     private void loadImageClickJs() {
-        byWebView.getLoadJsHolder().loadJs("javascript:(function(){" +
+        olWebView.getLoadJsHolder().loadJs("javascript:(function(){" +
                 "var objs = document.getElementsByTagName(\"img\");" +
                 "for(var i=0;i<objs.length;i++)" +
                 "{" +
@@ -213,7 +212,7 @@ public class ByWebViewActivity extends AppCompatActivity {
      * 遍历所有的<li>节点,将节点里的属性传递过去(属性自定义,用于页面跳转)
      */
     private void loadTextClickJs() {
-        byWebView.getLoadJsHolder().loadJs("javascript:(function(){" +
+        olWebView.getLoadJsHolder().loadJs("javascript:(function(){" +
                 "var objs =document.getElementsByTagName(\"li\");" +
                 "for(var i=0;i<objs.length;i++)" +
                 "{" +
@@ -228,9 +227,9 @@ public class ByWebViewActivity extends AppCompatActivity {
      */
     private void loadCallJs() {
         // 无参数调用
-        byWebView.getLoadJsHolder().quickCallJs("javacalljs");
+        olWebView.getLoadJsHolder().quickCallJs("javacalljs");
         // 传递参数调用
-        byWebView.getLoadJsHolder().quickCallJs("javacalljswithargs", "android传入到网页里的数据，有参");
+        olWebView.getLoadJsHolder().quickCallJs("javacalljswithargs", "android传入到网页里的数据，有参");
     }
 
     /**
@@ -238,7 +237,7 @@ public class ByWebViewActivity extends AppCompatActivity {
      * 获取网页源码
      */
     private void loadWebsiteSourceCodeJs() {
-        byWebView.getLoadJsHolder().loadJs("javascript:window.injectedObject.showSource(document.getElementsByTagName('html')[0].innerHTML);");
+        olWebView.getLoadJsHolder().loadJs("javascript:window.injectedObject.showSource(document.getElementsByTagName('html')[0].innerHTML);");
     }
 
     /**
@@ -247,7 +246,7 @@ public class ByWebViewActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        byWebView.handleFileChooser(requestCode, resultCode, intent);
+        olWebView.handleFileChooser(requestCode, resultCode, intent);
     }
 
     /**
@@ -278,7 +277,7 @@ public class ByWebViewActivity extends AppCompatActivity {
                 String text = "Scheme: " + scheme + "\n" + "host: " + host + "\n" + "path: " + path;
                 Log.e("data", text);
                 String url = scheme + "://" + host + path;
-                byWebView.loadUrl(url);
+                olWebView.loadUrl(url);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -297,7 +296,7 @@ public class ByWebViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (byWebView.handleKeyEvent(keyCode, event)) {
+        if (olWebView.handleKeyEvent(keyCode, event)) {
             return true;
         } else {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -310,18 +309,18 @@ public class ByWebViewActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        byWebView.onPause();
+        olWebView.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        byWebView.onResume();
+        olWebView.onResume();
     }
 
     @Override
     protected void onDestroy() {
-        byWebView.onDestroy();
+        olWebView.onDestroy();
         super.onDestroy();
     }
 
@@ -334,7 +333,7 @@ public class ByWebViewActivity extends AppCompatActivity {
      * @param state    类型
      */
     public static void loadUrl(Context mContext, String url, String title, int state) {
-        Intent intent = new Intent(mContext, ByWebViewActivity.class);
+        Intent intent = new Intent(mContext, OlWebViewActivity.class);
         intent.putExtra("url", url);
         intent.putExtra("state", state);
         intent.putExtra("title", title == null ? "加载中..." : title);

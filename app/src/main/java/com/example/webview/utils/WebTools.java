@@ -16,7 +16,7 @@ import com.example.webview.BuildConfig;
 import com.example.webview.R;
 
 /**
- * Created by jingbin on 2017/2/13.
+ * Created by win on 2017/2/13.
  */
 
 public class WebTools {

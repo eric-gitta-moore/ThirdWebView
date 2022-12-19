@@ -8,7 +8,7 @@ import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.sdk.WebView;
 
 /**
- * Created by jingbin on 2016/11/17.
+ * Created by win on 2016/11/17.
  */
 public interface IX5WebPageView {
 

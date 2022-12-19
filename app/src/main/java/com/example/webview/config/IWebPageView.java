@@ -6,7 +6,7 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 
 /**
- * Created by jingbin on 2019/07/27.
+ * Created by win on 2019/07/27.
  */
 public interface IWebPageView {
 

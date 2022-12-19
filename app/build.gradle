@@ -54,7 +54,6 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation files('libs/tbs_sdk_thirdapp_v4.3.0.281_44181_sharewithdownloadwithfile_withoutGame_obfs_20220407_152305.jar')
     implementation project(':WayWebView')
-    //    implementation 'com.github.youlookwhat:ByWebView:1.2.0'
 
     implementation "com.github.permissions-dispatcher:permissionsdispatcher:4.9.2"
     annotationProcessor "com.github.permissions-dispatcher:permissionsdispatcher-processor:4.9.2"

@@ -25,8 +25,7 @@ import androidx.annotation.Nullable;
  * 2. 当一条进度没跑完，又点击其他链接开始第二次进度时，第二次进度不出现
  * 3. 修改消失动画时长，使其消失时看到可以进度跑完
  *
- * @author jingbin
- * Link to https://github.com/youlookwhat/WebProgress
+ * @author win
  */
 public class WebProgress extends FrameLayout {
 

@@ -14,7 +14,7 @@ import com.tencent.smtt.sdk.QbSdk;
 import java.util.HashMap;
 
 /**
- * @author jingbin
+ * @author win
  * @data 2018/2/2
  */
 
@@ -44,7 +44,7 @@ public class App extends Application {
                 //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
                 if (!arg0) {
 //                    Toast.makeText(App.this, "X5内核加载失败，功能可能失效", Toast.LENGTH_SHORT).show();
-                    Log.e("ByWebView", "x5内核加载失败，自动切换到系统内核");
+                    Log.e("OlWebView", "x5内核加载失败，自动切换到系统内核");
                 }
             }
 

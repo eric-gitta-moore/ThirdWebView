@@ -26,14 +26,14 @@ import me.jingbin.web.R;
 
 
 /**
- * Created by jingbin on 2019/07/27.
+ * Created by win on 2019/07/27.
  * - 播放网络视频配置
  * - 上传图片(兼容)
  */
 public class ByWebChromeClient extends WebChromeClient {
 
     private WeakReference<Activity> mActivityWeakReference;
-    private ByWebView mByWebView;
+    private OlWebView mOlWebView;
     private ValueCallback<Uri> mUploadMessage;
     private ValueCallback<Uri[]> mUploadMessageForAndroid5;
     private static final int RESULT_CODE_FILE_CHOOSER = 1;
@@ -49,9 +49,9 @@ public class ByWebChromeClient extends WebChromeClient {
     // 修复可能部分h5无故竖屏问题
     private boolean isFixScreenPortrait = false;
 
-    ByWebChromeClient(Activity activity, ByWebView byWebView) {
+    ByWebChromeClient(Activity activity, OlWebView olWebView) {
         mActivityWeakReference = new WeakReference<Activity>(activity);
-        this.mByWebView = byWebView;
+        this.mOlWebView = olWebView;
     }
 
     void setOnByWebChromeCallback(OnTitleProgressCallback onByWebChromeCallback) {
@@ -80,7 +80,7 @@ public class ByWebChromeClient extends WebChromeClient {
                     mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 }
             }
-            mByWebView.getWebView().setVisibility(View.INVISIBLE);
+            mOlWebView.getWebView().setVisibility(View.INVISIBLE);
 
             // 如果一个视图已经存在，那么立刻终止并新建一个
             if (mCustomView != null) {
@@ -128,7 +128,7 @@ public class ByWebChromeClient extends WebChromeClient {
             }
             mCustomView = null;
             mCustomViewCallback.onCustomViewHidden();
-            mByWebView.getWebView().setVisibility(View.VISIBLE);
+            mOlWebView.getWebView().setVisibility(View.VISIBLE);
         }
     }
 
@@ -138,7 +138,7 @@ public class ByWebChromeClient extends WebChromeClient {
     @Override
     public View getVideoLoadingProgressView() {
         if (mProgressVideo == null) {
-            mProgressVideo = LayoutInflater.from(mByWebView.getWebView().getContext()).inflate(R.layout.by_video_loading_progress, null);
+            mProgressVideo = LayoutInflater.from(mOlWebView.getWebView().getContext()).inflate(R.layout.by_video_loading_progress, null);
         }
         return mProgressVideo;
     }
@@ -147,15 +147,15 @@ public class ByWebChromeClient extends WebChromeClient {
     public void onProgressChanged(WebView view, int newProgress) {
         super.onProgressChanged(view, newProgress);
         // 进度条
-        if (mByWebView.getProgressBar() != null) {
-            mByWebView.getProgressBar().setWebProgress(newProgress);
+        if (mOlWebView.getProgressBar() != null) {
+            mOlWebView.getProgressBar().setWebProgress(newProgress);
         }
         // 当显示错误页面时，进度达到100才显示网页
-        if (mByWebView.getWebView() != null
-                && mByWebView.getWebView().getVisibility() == View.INVISIBLE
-                && (mByWebView.getErrorView() == null || mByWebView.getErrorView().getVisibility() == View.GONE)
+        if (mOlWebView.getWebView() != null
+                && mOlWebView.getWebView().getVisibility() == View.INVISIBLE
+                && (mOlWebView.getErrorView() == null || mOlWebView.getErrorView().getVisibility() == View.GONE)
                 && newProgress == 100) {
-            mByWebView.getWebView().setVisibility(View.VISIBLE);
+            mOlWebView.getWebView().setVisibility(View.VISIBLE);
         }
         if (onByWebChromeCallback != null) {
             onByWebChromeCallback.onProgressChanged(newProgress);
@@ -174,8 +174,8 @@ public class ByWebChromeClient extends WebChromeClient {
         super.onReceivedTitle(view, title);
         // 设置title
         if (onByWebChromeCallback != null) {
-            if (mByWebView.getErrorView() != null && mByWebView.getErrorView().getVisibility() == View.VISIBLE) {
-                onByWebChromeCallback.onReceivedTitle(TextUtils.isEmpty(mByWebView.getErrorTitle()) ? "网页无法打开" : mByWebView.getErrorTitle());
+            if (mOlWebView.getErrorView() != null && mOlWebView.getErrorView().getVisibility() == View.VISIBLE) {
+                onByWebChromeCallback.onReceivedTitle(TextUtils.isEmpty(mOlWebView.getErrorTitle()) ? "网页无法打开" : mOlWebView.getErrorTitle());
             } else {
                 onByWebChromeCallback.onReceivedTitle(title);
             }
@@ -286,7 +286,7 @@ public class ByWebChromeClient extends WebChromeClient {
     @Override
     public Bitmap getDefaultVideoPoster() {
         if (super.getDefaultVideoPoster() == null) {
-            return BitmapFactory.decodeResource(mByWebView.getWebView().getResources(), R.drawable.by_icon_video);
+            return BitmapFactory.decodeResource(mOlWebView.getWebView().getResources(), R.drawable.by_icon_video);
         } else {
             return super.getDefaultVideoPoster();
         }
