@@ -74,6 +74,6 @@ public class MyJavascriptInterface {
      */
     @JavascriptInterface
     public void showSource(String html) {
-        Log.e("showSourceCode", html);
+//        Log.e("showSourceCode", html);
     }
 }

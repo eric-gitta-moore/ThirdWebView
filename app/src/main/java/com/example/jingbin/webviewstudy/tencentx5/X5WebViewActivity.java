@@ -40,6 +40,7 @@ import com.example.jingbin.webviewstudy.utils.DonwloadSaveImg;
 import com.example.jingbin.webviewstudy.utils.StatusBarUtil;
 import com.example.jingbin.webviewstudy.utils.WebTools;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
+import com.tencent.smtt.sdk.DownloadListener;
 
 import java.util.Map;
 
@@ -217,6 +218,36 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
                 return handleLongImage();
             }
         });
+        webView.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(final String url, String s1, String s2, String s3, long l) {
+                Log.d("onDownloadStart", "onDownloadStart url: " + url);
+                new AlertDialog.Builder(X5WebViewActivity.this)
+                        .setTitle("是否允许下载")
+                        .setPositiveButton("确认",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which) {
+                                        WebTools.openLink(X5WebViewActivity.this, url);
+                                    }
+                                })
+                        .setNegativeButton("取消",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which) {
+                                    }
+                                })
+                        .setOnCancelListener(
+                                new DialogInterface.OnCancelListener() {
+                                    @Override
+                                    public void onCancel(DialogInterface dialog) {
+                                    }
+                                }).show();
+            }
+        });
 
     }
 
@@ -289,7 +320,7 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
     public boolean isOpenThirdApp(WebResourceRequest webResourceRequest) {
         Map<String, String> headers = webResourceRequest.getRequestHeaders();
         if (headers == null) {
-            return false;
+            return WebTools.handleThirdApp(this, webResourceRequest.getUrl().toString());
         }
         Log.d("isOpenThirdApp", headers.get("content-type"));
         return false;

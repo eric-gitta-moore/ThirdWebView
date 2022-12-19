@@ -36,13 +36,14 @@ public class MyX5WebViewClient extends com.tencent.smtt.sdk.WebViewClient {
         return mIWebPageView.isOpenThirdApp(url);
     }
 
-    @Override
-    public boolean shouldOverrideUrlLoading(WebView webView, WebResourceRequest webResourceRequest) {
-        if (TextUtils.isEmpty(webResourceRequest.getUrl().toString())) {
-            return false;
-        }
-        return mIWebPageView.isOpenThirdApp(webResourceRequest);
-    }
+//    @Override
+//    public boolean shouldOverrideUrlLoading(WebView webView, WebResourceRequest webResourceRequest) {
+//        Log.e("jing2", "----url:" + webResourceRequest.getUrl().toString());
+//        if (TextUtils.isEmpty(webResourceRequest.getUrl().toString())) {
+//            return false;
+//        }
+//        return mIWebPageView.isOpenThirdApp(webResourceRequest);
+//    }
 
     @Override
     public void onPageFinished(WebView view, String url) {
