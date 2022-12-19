@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.jingbin.webviewstudy">
+    package="com.example.webview">
 
     <!-- 网络 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".App"
+        android:name="com.example.webview.App"
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -29,10 +29,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.webview.MainActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".ui.WebViewActivity"
+            android:name="com.example.webview.ui.WebViewActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
@@ -41,7 +41,7 @@
 
 
         <!--用于DeepLink，html跳到此页面  scheme_Adr: 'will://link/testid',-->
-        <activity android:name=".ui.DeepLinkActivity">
+        <activity android:name="com.example.webview.ui.DeepLinkActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -67,7 +67,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".EnterActivity"
+        <activity android:name="com.example.webview.EnterActivity"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -77,7 +77,7 @@
 
         <!--tencent x5 页面-->
         <activity
-            android:name=".tencentx5.X5WebViewActivity"
+            android:name="com.example.webview.tencentx5.X5WebViewActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
@@ -95,14 +95,14 @@
             android:process=":dexopt" />
 
         <activity
-            android:name=".ui.ByWebViewActivity"
+            android:name="com.example.webview.ui.ByWebViewActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/WebViewTheme"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.CoordinatorWebActivity"
+            android:name="com.example.webview.ui.CoordinatorWebActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
