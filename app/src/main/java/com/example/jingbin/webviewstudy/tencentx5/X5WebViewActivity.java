@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,11 +82,11 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
     private final boolean isShowToolBar = false;
 
     @Override
-    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview_x5);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
+        StatusBarUtil.toggleFullscreen(this);
         getIntentData();
         initTitle();
         initWebView();
@@ -103,6 +104,7 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
         mUrl = getIntent().getStringExtra("mUrl");
         if (mUrl == null) {
             mUrl = "http://debugtbs.qq.com";
+            mUrl = "http://baidu.com";
         }
         mTitle = getIntent().getStringExtra("mTitle");
     }
@@ -473,7 +475,7 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
 
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
     public void onSaveImage(String mUrl) {
-        Toast.makeText(this, mUrl, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, mUrl, Toast.LENGTH_SHORT).show();
         DonwloadSaveImg.donwloadImg(this, mUrl);
     }
 

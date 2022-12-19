@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.ColorInt;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.view.WindowManager;
+
 /**
  * Created by Jaeger on 16/2/14.
  * <p>
@@ -23,6 +25,27 @@ import androidx.drawerlayout.widget.DrawerLayout;
 public class StatusBarUtil {
 
     public static final int DEFAULT_STATUS_BAR_ALPHA = 112;
+
+
+    private static boolean mIsFullScreen = false;
+
+    public static void toggleFullscreen(Activity activity) {
+        WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+        if (mIsFullScreen) {//设置为非全屏
+            lp.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            activity.getWindow().setAttributes(lp);
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        } else {//设置为全屏
+            lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+            activity.getWindow().setAttributes(lp);
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+    }
+
+    public static void toggleFullscreen(Activity activity, boolean mIsFullScreen) {
+        StatusBarUtil.mIsFullScreen = mIsFullScreen;
+        toggleFullscreen(activity);
+    }
 
     /**
      * 设置状态栏颜色
@@ -382,10 +405,10 @@ public class StatusBarUtil {
             activity.getWindow()
                     .getDecorView()
                     .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-           if (activity instanceof TabActivity){
-               activity.getWindow()//兼容TabActivity
-                       .setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-           }
+            if (activity instanceof TabActivity) {
+                activity.getWindow()//兼容TabActivity
+                        .setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            }
         } else {
             activity.getWindow()
                     .setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

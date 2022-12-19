@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jingbin.webviewstudy.tencentx5.X5WebViewActivity;
+import com.example.jingbin.webviewstudy.utils.StatusBarUtil;
 
 public class EnterActivity extends AppCompatActivity {
     private static final int sleepTime = 2000;
@@ -15,6 +16,7 @@ public class EnterActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter);
+        StatusBarUtil.toggleFullscreen(this);
         init();
     }
 
