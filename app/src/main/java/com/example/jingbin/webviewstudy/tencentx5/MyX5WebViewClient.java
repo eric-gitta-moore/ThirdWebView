@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.sdk.WebView;
 
 /**
@@ -35,6 +36,13 @@ public class MyX5WebViewClient extends com.tencent.smtt.sdk.WebViewClient {
         return mIWebPageView.isOpenThirdApp(url);
     }
 
+    @Override
+    public boolean shouldOverrideUrlLoading(WebView webView, WebResourceRequest webResourceRequest) {
+        if (TextUtils.isEmpty(webResourceRequest.getUrl().toString())) {
+            return false;
+        }
+        return mIWebPageView.isOpenThirdApp(webResourceRequest);
+    }
 
     @Override
     public void onPageFinished(WebView view, String url) {

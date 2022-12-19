@@ -1,5 +1,6 @@
 package com.example.jingbin.webviewstudy.tencentx5;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,8 +36,14 @@ import com.example.jingbin.webviewstudy.config.MyJavascriptInterface;
 import com.example.jingbin.webviewstudy.config.MyWebChromeClient;
 import com.example.jingbin.webviewstudy.config.WebProgress;
 import com.example.jingbin.webviewstudy.utils.CheckNetwork;
+import com.example.jingbin.webviewstudy.utils.DonwloadSaveImg;
 import com.example.jingbin.webviewstudy.utils.StatusBarUtil;
 import com.example.jingbin.webviewstudy.utils.WebTools;
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
+
+import java.util.Map;
+
+import permissions.dispatcher.*;
 
 /**
  * 使用 tencent x5 内核处理网页
@@ -50,6 +58,7 @@ import com.example.jingbin.webviewstudy.utils.WebTools;
  * 腾讯x5文档地址：https://x5.tencent.com/docs/access.html
  * link to https://github.com/youlookwhat/ByWebView
  */
+@RuntimePermissions
 public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageView {
 
     // 进度条
@@ -71,6 +80,7 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
     private final boolean isShowToolBar = false;
 
     @Override
+    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview_x5);
@@ -82,10 +92,16 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
         getDataFromBrowser(getIntent());
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        X5WebViewActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
     private void getIntentData() {
         mUrl = getIntent().getStringExtra("mUrl");
         if (mUrl == null) {
-            mUrl = "http://baidu.com";
+            mUrl = "http://debugtbs.qq.com";
         }
         mTitle = getIntent().getStringExtra("mTitle");
     }
@@ -204,6 +220,10 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
 
     }
 
+    public X5WebViewActivity getInstance() {
+        return this;
+    }
+
     @Override
     public void showWebView() {
         webView.setVisibility(View.VISIBLE);
@@ -263,6 +283,16 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
     @Override
     public boolean isOpenThirdApp(String url) {
         return WebTools.handleThirdApp(this, url);
+    }
+
+    @Override
+    public boolean isOpenThirdApp(WebResourceRequest webResourceRequest) {
+        Map<String, String> headers = webResourceRequest.getRequestHeaders();
+        if (headers == null) {
+            return false;
+        }
+        Log.d("isOpenThirdApp", headers.get("content-type"));
+        return false;
     }
 
     /**
@@ -410,6 +440,17 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
 //        }
     }
 
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+    public void onSaveImage(String mUrl) {
+        Toast.makeText(this, mUrl, Toast.LENGTH_SHORT).show();
+        DonwloadSaveImg.donwloadImg(this, mUrl);
+    }
+
+    @OnPermissionDenied({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+    public void onStorageDenied() {
+        Toast.makeText(this, "获取存储权限失败", Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * 长按图片事件处理
      */
@@ -420,7 +461,7 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
                 hitTestResult.getType() == com.tencent.smtt.sdk.WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
             // 弹出保存图片的对话框
             new AlertDialog.Builder(this)
-                    .setItems(new String[]{"查看大图", "保存图片到相册"}, new DialogInterface.OnClickListener() {
+                    .setItems(new String[]{"保存图片到相册"}, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String picUrl = hitTestResult.getExtra();
@@ -428,6 +469,7 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
                             Log.e("picUrl", picUrl);
                             switch (which) {
                                 case 0:
+                                    X5WebViewActivityPermissionsDispatcher.onSaveImageWithPermissionCheck(getInstance(), picUrl);
                                     break;
                                 case 1:
                                     break;

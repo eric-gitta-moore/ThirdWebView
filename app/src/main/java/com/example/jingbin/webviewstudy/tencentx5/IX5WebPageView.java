@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.sdk.WebView;
 
 /**
@@ -78,4 +79,6 @@ public interface IX5WebPageView {
      * @param url
      */
     boolean isOpenThirdApp(String url);
+
+    boolean isOpenThirdApp(WebResourceRequest webResourceRequest);
 }

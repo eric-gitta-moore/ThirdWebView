@@ -38,12 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AutoCompleteTextView etSearch;
     private RadioButton rbSystem;
     private int state = 0;
-    private final String HomeUrl = "http://qq.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadUrl(HomeUrl, "", true);
         setContentView(R.layout.activity_main);
 
         StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.colorPrimary), 0);
