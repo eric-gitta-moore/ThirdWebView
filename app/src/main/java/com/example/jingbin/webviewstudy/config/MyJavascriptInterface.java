@@ -29,7 +29,7 @@ public class MyJavascriptInterface {
     public void imageClick(String src) {
         Log.e("imageClick", "----点击了图片");
         Log.e("---src", src);
-        WebTools.showToast(src);
+//        WebTools.showToast(src);
     }
 
     /**
@@ -45,7 +45,7 @@ public class MyJavascriptInterface {
             Log.e("textClick", "----点击了文字");
             Log.e("type", type);
             Log.e("item_pk", item_pk);
-            WebTools.showToast("type: " + type + ", item_pk:" + item_pk);
+//            WebTools.showToast("type: " + type + ", item_pk:" + item_pk);
         }
     }
 
@@ -55,7 +55,7 @@ public class MyJavascriptInterface {
     @JavascriptInterface
     public void startFunction() {
         Log.e("startFunction", "----无参");
-        WebTools.showToast("无参方法");
+//        WebTools.showToast("无参方法");
     }
 
     /**
@@ -66,7 +66,7 @@ public class MyJavascriptInterface {
     @JavascriptInterface
     public void startFunction(String data) {
         Log.e("startFunction", "----有参方法: " + data);
-        WebTools.showToast("----有参方法: " + data);
+//        WebTools.showToast("----有参方法: " + data);
     }
 
     /**
