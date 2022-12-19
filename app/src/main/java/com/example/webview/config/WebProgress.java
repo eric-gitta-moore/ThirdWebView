@@ -20,7 +20,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.Nullable;
 
 /**
- * WebView进度条，原作者: cenxiaozhong，在此基础上修改优化：
+ * WebView进度条，在此基础上修改优化：
  * 1. progress同时返回两次100时进度条出现两次
  * 2. 当一条进度没跑完，又点击其他链接开始第二次进度时，第二次进度不出现
  * 3. 修改消失动画时长，使其消失时看到可以进度跑完

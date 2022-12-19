@@ -17,7 +17,7 @@ import static android.app.Activity.RESULT_OK;
 
 
 /**
- * Created by win on 2019/1/15.
+ * 
  * - 播放网络视频配置
  * - 上传图片(兼容)
  */

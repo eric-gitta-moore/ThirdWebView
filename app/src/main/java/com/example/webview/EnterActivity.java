@@ -72,7 +72,6 @@ public class EnterActivity extends AppCompatActivity {
                 }
                 //进入主页面
                 startActivity(new Intent(EnterActivity.this, X5WebViewActivity.class));
-//                startActivity(new Intent(EnterActivity.this, MainActivity.class));
                 finish();
             }
         }).start();

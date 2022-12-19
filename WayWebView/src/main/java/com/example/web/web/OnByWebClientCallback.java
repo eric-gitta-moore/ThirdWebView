@@ -6,7 +6,7 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 
 /**
- * Created by win on 2020/6/30.
+ * 
  */
 public abstract class OnByWebClientCallback {
 

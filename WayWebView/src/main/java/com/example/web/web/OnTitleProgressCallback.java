@@ -1,7 +1,7 @@
 package com.example.web.web;
 
 /**
- * Created by win on 2020/6/30.
+ * 
  */
 public abstract class OnTitleProgressCallback {
 

@@ -6,7 +6,7 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 /**
- * Created by win on 2016/11/17.
+ * 
  * js通信接口
  */
 public class MyJavascriptInterface {

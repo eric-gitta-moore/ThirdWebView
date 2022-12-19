@@ -15,10 +15,6 @@ import com.example.webview.App;
 import com.example.webview.BuildConfig;
 import com.example.webview.R;
 
-/**
- * Created by win on 2017/2/13.
- */
-
 public class WebTools {
 
     /**

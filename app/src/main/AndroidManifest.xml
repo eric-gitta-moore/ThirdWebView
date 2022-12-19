@@ -28,44 +28,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
-        <activity
-            android:name="com.example.webview.MainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
-            android:name="com.example.webview.ui.WebViewActivity"
-            android:configChanges="orientation|screenSize"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/WebViewTheme"
-            tools:ignore="LockedOrientationActivity" />
-
-
-        <!--用于DeepLink，html跳到此页面  scheme_Adr: 'will://link/testid',-->
-        <activity android:name="com.example.webview.ui.DeepLinkActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="link"
-                    android:scheme="will" />
-            </intent-filter>
-            <!--配置多个data-->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <!--可以只配置一个scheme，也可以唤起来-->
-                <data
-                    android:host="jingbin.me"
-                    android:path="/deeplink"
-                    android:scheme="will" />
-            </intent-filter>
-        </activity>
 
         <activity android:name="com.example.webview.EnterActivity"
             android:theme="@style/FullscreenTheme">
@@ -93,21 +55,6 @@
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"
             android:process=":dexopt" />
-
-        <activity
-            android:name="com.example.webview.ui.OlWebViewActivity"
-            android:configChanges="orientation|screenSize"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/WebViewTheme"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name="com.example.webview.ui.CoordinatorWebActivity"
-            android:configChanges="orientation|screenSize"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/WebViewTheme"
-            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

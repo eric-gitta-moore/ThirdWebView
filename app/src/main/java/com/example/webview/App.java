@@ -13,11 +13,6 @@ import com.tencent.smtt.sdk.QbSdk;
 
 import java.util.HashMap;
 
-/**
- * @author win
- * @data 2018/2/2
- */
-
 public class App extends Application {
 
     private static App app;

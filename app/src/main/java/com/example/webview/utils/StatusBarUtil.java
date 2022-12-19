@@ -14,10 +14,6 @@ import android.widget.LinearLayout;
 import androidx.annotation.ColorInt;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-/**
- * Created by Jaeger on 16/2/14.
- * <p>
- */
 public class StatusBarUtil {
 
     public static final int DEFAULT_STATUS_BAR_ALPHA = 112;

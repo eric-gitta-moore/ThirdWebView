@@ -5,7 +5,7 @@ import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
 /**
- * Created by win on 2016/11/17.
+ * 
  */
 
 public class FullscreenHolder extends FrameLayout {

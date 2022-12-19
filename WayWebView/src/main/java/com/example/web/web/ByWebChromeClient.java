@@ -26,7 +26,7 @@ import me.jingbin.web.R;
 
 
 /**
- * Created by win on 2019/07/27.
+ * 
  * - 播放网络视频配置
  * - 上传图片(兼容)
  */
