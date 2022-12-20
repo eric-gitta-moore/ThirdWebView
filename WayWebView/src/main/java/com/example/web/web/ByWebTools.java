@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import me.jingbin.web.BuildConfig;
+import com.example.web.BuildConfig;
 
 /**
  * @author win

@@ -22,7 +22,7 @@ import androidx.annotation.RequiresApi;
 
 import java.lang.ref.WeakReference;
 
-import me.jingbin.web.R;
+import com.example.web.R;
 
 
 /**

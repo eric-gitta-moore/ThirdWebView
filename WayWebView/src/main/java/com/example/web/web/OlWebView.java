@@ -16,7 +16,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
-import me.jingbin.web.R;
+import com.example.web.R;
 
 /**
  * 网页可以处理:
