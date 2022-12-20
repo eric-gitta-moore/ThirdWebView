@@ -550,10 +550,27 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
             } else {
 //                handleFinish();
                 if (System.currentTimeMillis() - preTime < 2000) {//在两秒内，退出
-                    Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                    homeIntent.addCategory(Intent.CATEGORY_HOME);
-                    homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(homeIntent);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("退出提示")
+                            .setMessage("确定要退出程序吗？")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                                    homeIntent.addCategory(Intent.CATEGORY_HOME);
+                                    homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(homeIntent);
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            })
+                            .create()
+                            .show();
+                    preTime = 0;
                     return true;
                 }
                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
