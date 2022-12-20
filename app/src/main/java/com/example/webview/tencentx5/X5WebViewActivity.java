@@ -573,7 +573,7 @@ public class X5WebViewActivity extends AppCompatActivity implements IX5WebPageVi
                     preTime = 0;
                     return true;
                 }
-                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 preTime = System.currentTimeMillis();
                 return true;
             }
